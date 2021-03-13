@@ -6,7 +6,7 @@
 #include "list.h"
 
 
-List create_list(long* counter)
+List create_list(void)
 {
     
     List aux;
@@ -14,8 +14,7 @@ List create_list(long* counter)
     if (aux != NULL)
     {
         aux->task = (Task *) malloc(sizeof(Task));
-        (*counter)++;
-        aux->task->id = counter;
+        aux->task->id = 0;
         aux->task->made_in = 0;
         aux->task->date = 0;
         char* person = create_string("");
