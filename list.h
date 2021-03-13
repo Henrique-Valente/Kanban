@@ -12,7 +12,7 @@ typedef struct lnode
 } List_node;
 
 
-List create_list(long* counter);
+List create_list();
 
 /*
 mode = 0 search by creation date
