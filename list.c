@@ -8,13 +8,14 @@
 
 List create_list(long* counter)
 {
-    *counter = 0;
+    
     List aux;
     aux = (List)malloc(sizeof(List_node));
     if (aux != NULL)
     {
         aux->task = (Task *) malloc(sizeof(Task));
-        aux->task->id = 0;
+        (*counter)++;
+        aux->task->id = counter;
         aux->task->made_in = 0;
         aux->task->date = 0;
         char* person = create_string("");
