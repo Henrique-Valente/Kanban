@@ -1,10 +1,27 @@
+#pragma once
 #include <time.h>
 
 
-// a task that can be distinguished by its unique identifier 
+/*
+A task that identified by its unique identifier (id),
+holds the date it was created in, info about the task, 
+another date that can serve as the date of conclusion
+or the date it is expected to be finished,
+and finally the person who finished or is working on the task.
+*/
 typedef struct task
 {
-    int pid; 
+    int id; 
     time_t made_in;
     char* info;
+    time_t date;
+    char* person;
 } Task;
+
+char* create_string(const char* str);
+
+/* 
+if you want to create a task without date or person just call as such: create_task(counter,info,NULL,NULL)
+Counter and info must not be NULL.
+*/
+Task* create_task(long* counter, const char* info, time_t* date, const char* person);
