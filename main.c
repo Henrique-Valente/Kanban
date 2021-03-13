@@ -1,6 +1,7 @@
 #include "list.c"
 #include "task.c"
 
+/*so estava a usar isto para testar*/
 int main(int argc, char const *argv[])
 {   
     time_t t1 = time(NULL);
