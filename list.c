@@ -11,14 +11,14 @@ typedef struct lnode
 } List_node;
 
 
-List cria_lista(void)
+List create_list(void)
 {
     List aux;
     aux = (List)malloc(sizeof(List_node));
     if (aux != NULL)
     {
         aux->task = (Task *) malloc(sizeof(Task));
-        aux->task->pid = 0;
+        aux->task->id = 0;
         aux->task->made_in = 0;
         aux->next = NULL;
     }
@@ -26,70 +26,86 @@ List cria_lista(void)
 }
 
 
-void procura_lista(List lista, Task* to_find , List *ant, List *atual)
+void search_list(List list, Task* to_find , List *prev, List *cur)
 {
-    *ant = lista;
-    *atual = lista->next;
+    *prev = list;
+    *cur = list->next;
     time_t date = to_find->made_in;
-    while ( (*atual) != NULL &&  
-            ( (*atual)->task->made_in < date ||
-            ((*atual)->task->made_in == date &&  (*atual)->task->pid < to_find -> pid) )
+    while ( (*cur) != NULL &&  
+            ( (*cur)->task->made_in < date ||
+            ((*cur)->task->made_in == date &&  (*cur)->task->id < to_find -> id) )
         )
     {
-        *ant = *atual;
-        *atual = (*atual)->next;
+        *prev = *cur;
+        *cur = (*cur)->next;
     }
-    if ((*atual) != NULL && (*atual)->task->made_in != date)
-        *atual = NULL; /* Se elemento não encontrado*/
+    if ((*cur) != NULL && (*cur)->task->made_in != date)
+        *cur = NULL; /* Se elemento não encontrado*/
 }
 
 
-void insere_lista(List lista, Task *it) /* ordenado */
+void insere_list(List list, Task *it) /* ordenado */
 {
     List no;
-    List ant, inutil;
+    List prev, inutil;
     no = (List)malloc(sizeof(List_node));
     if (no != NULL)
     {
 
         no->task = it;
-        procura_lista(lista, it, &ant, &inutil);
-        no->next = ant->next;
-        ant->next = no;
+        search_list(list, it, &prev, &inutil);
+        no->next = prev->next;
+        prev->next = no;
     }
 }
 
-void imprime_lista(List lista)
+void print_list(List list)
 {
-    List l = lista->next; /* Salta o header */
+    List l = list->next; /* Salta o header */
     while (l)
     {
-        printf("|%d|%ld ", l->task->pid, l->task->made_in);
+        printf("|%d|%ld ", l->task->id, l->task->made_in);
         l = l->next;
     }
 }
+
+List find_list(List list, Task* it){
+    List prev;
+    List cur;
+
+    search_list(list, it, &prev, &cur);
+
+    return (cur);
+}
+
+
 
 int main(int argc, char const *argv[])
 {   
     time_t t1 = time(NULL);
     printf("%s",ctime(&t1));
 
-    List list = cria_lista();
+    List list = create_list();
     Task* s1 = (Task*) malloc(sizeof(Task));
     s1->made_in = t1;
-    s1->pid = 1;
+    s1->id = 1;
+
     Task* s2 = (Task*) malloc(sizeof(Task));
     s2->made_in = t1+20; 
-    s2->pid = 2;
+    s2->id = 2;
 
     Task* s3 = (Task*) malloc(sizeof(Task));
     s3->made_in = t1+20; 
-    s3->pid = 3;
+    s3->id = 3;
 
-    insere_lista(list, s1);
-    insere_lista(list, s2);
-    insere_lista(list, s3);
-    imprime_lista(list);
+    insere_list(list, s1);
+    insere_list(list, s2);
+    insere_list(list, s3);
+    print_list(list);
+    List res = find_list(list,s2);
+    printf("\n");
+    printf("%d\n", res->task->id);
+    print_list(res);
     return 0;
 }
 
