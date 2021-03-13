@@ -4,6 +4,14 @@
 #include <string.h>
 #include "task.c"
 
+typedef struct lnode *List;
+typedef struct lnode
+{
+    Task* task;
+    List next;
+} List_node;
+
+
 List create_list(long* counter);
 
 /*
