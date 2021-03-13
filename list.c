@@ -1,15 +1,8 @@
-#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "task.c"
-
-typedef struct lnode *List;
-typedef struct lnode
-{
-    Task* task;
-    List next;
-} List_node;
+#include "list.h"
 
 
 List create_list(long* counter)
