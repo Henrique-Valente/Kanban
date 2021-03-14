@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "task.c"
+#include "task.h"
 
 typedef struct lnode *List;
 typedef struct lnode
