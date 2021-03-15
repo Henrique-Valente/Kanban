@@ -11,7 +11,7 @@ and finally the person who finished or is working on the task.
 */
 typedef struct task
 {
-    int id; 
+    long id; 
     time_t made_in;
     char* info;
     time_t date;
