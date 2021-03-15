@@ -112,7 +112,7 @@ void print_list(List list)
     List l = list->next; /* Salta o header */
     while (l)
     {
-        printf("|%d|%s|%ld ", l->task->id, l->task->person,l->task->date);
+        printf("|%ld|%s|%ld ", l->task->id, l->task->person,l->task->date);
         l = l->next;
     }
 }
