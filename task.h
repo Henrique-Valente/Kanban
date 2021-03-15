@@ -13,8 +13,8 @@ typedef struct task
 {
     long id; 
     time_t made_in;
-    char* info;
     time_t date;
+    char* info;
     char* person;
 } Task;
 
