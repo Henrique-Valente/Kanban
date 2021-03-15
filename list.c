@@ -6,7 +6,7 @@
 #include "list.h"
 
 
-List create_list(void)
+List create_list()
 {
     
     List aux;
@@ -76,6 +76,19 @@ void search_list_person(List list, Task* to_find , List *prev, List *cur)
         *cur = NULL; /* Se elemento não encontrado*/
 }
 
+void search_list_id(List list, long id_to_find, List *prev, List *cur){
+    *prev = list;
+    *cur = list->next;
+
+    while ( (*cur) != NULL &&  (*cur)->task->id != id_to_find )
+    {
+        *prev = *cur;
+        *cur = (*cur)->next;
+    }
+    if ( (*cur) != NULL && (*cur)->task->id != id_to_find )
+        *cur = NULL; /* Se elemento não encontrado*/
+}
+
 void search_mode(List list, Task* it , List *prev, List *cur, int mode){
     switch (mode)
         {
@@ -89,7 +102,7 @@ void search_mode(List list, Task* it , List *prev, List *cur, int mode){
 
         default:
             search_list_made_in(list, it, prev, cur);
-            break;
+            break;        
         }
 }
 
@@ -117,17 +130,11 @@ void print_list(List list)
     }
 }
 
-List find_list(List list, Task* it){
+List find_list(List list, long id_to_find){
     List prev;
     List cur;
 
-    search_list_made_in(list, it, &prev, &cur);
+    search_list_id(list, id_to_find, &prev, &cur);
 
     return (cur);
 }
-
-
-
-
-
-
