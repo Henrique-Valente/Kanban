@@ -1,5 +1,6 @@
 #include "list.c"
 #include "task.c"
+#include "kanban.c"
 
 /*so estou a usar isto para testar*/
 int main(int argc, char const *argv[])
