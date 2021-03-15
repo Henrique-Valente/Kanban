@@ -15,7 +15,7 @@ typedef struct lnode
 List create_list();
 
 /*
-mode = 0 search by creation date
+mode = 0 search by creation_date
 mode = 1 search by date
 mode = 2 search by person
 */
@@ -26,6 +26,10 @@ void search_list_made_in(List list, Task* to_find , List *prev, List *cur);
 void search_list_date(List list, Task* to_find , List *prev, List *cur);
 void search_list_person(List list, Task* to_find , List *prev, List *cur);
 
+
+/* the method search_list_id cannot be used to order */
+void search_list_id(List list, long id_to_find, List *prev, List *cur); // this method in particular does not require an ordered set
 void insert_list(List list, Task *it, int mode);
 void print_list(List list);
-List find_list(List list, Task* it);
+List find_list(List list, long id_to_find);
+
