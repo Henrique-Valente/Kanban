@@ -1,0 +1,20 @@
+Task* delete_list (List list, int id) 
+Função modificada do void elimina_lista (List lista, ITEM_TYPE item) nos slides
+
+List destroy_list(List list)
+Funcão modificada do List destroi_lista (List lista) nos slides
+
+int empty_list (List list)
+Função modificada do int lista_vazia (List lista) nos slides
+
+List* create_to_do(void)
+devolve um array de tamanho 10 de listas initializadas (1 para cada prioridade)
+
+int task_to_do(long* counter, char* info, short priority)
+// cria um task e adiciona no to_do
+
+int do_task(long id, char* pessoa, time_t deadline)
+tira do to do e mete no doing
+// devolve -1 se o id nao estiver no to do
+// devolve 0  se esta cheio
+// devolve 1  ocorreu com sucesso
