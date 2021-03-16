@@ -35,4 +35,7 @@ void insert_list(List list, Task *it, int mode);
 void print_list(List list);
 List find_list(List list, long id_to_find);
 
+/* returns pointer to matching task or null if not found*/
+Task* remove_from_list(List list, long id);
+
 #endif
