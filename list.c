@@ -1,4 +1,3 @@
-#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -137,4 +136,18 @@ List find_list(List list, long id_to_find){
     search_list_id(list, id_to_find, &prev, &cur);
 
     return (cur);
+}
+
+
+Task* remove_from_list(List list, long id){
+    List ant1;
+    List cur1;
+    Task* output=NULL;
+    search_list_id(list,id,&ant1,&cur1);
+    if(cur1 != NULL){
+        ant1->next = cur1->next;
+        output = cur1->task;
+        free(cur1);
+    }
+    return output;
 }
