@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KANBAN_H
+#define KANBAN_H
 #include "list.h"
 
 
@@ -14,3 +15,4 @@ typedef struct kanban
 Kanban* create_kanban();
 
 
+#endif

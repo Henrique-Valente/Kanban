@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,3 +35,4 @@ void insert_list(List list, Task *it, int mode);
 void print_list(List list);
 List find_list(List list, long id_to_find);
 
+#endif
