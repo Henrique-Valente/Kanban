@@ -7,7 +7,7 @@
 
 List create_list()
 {
-    
+
     List aux;
     aux = (List)malloc(sizeof(List_node));
     if (aux != NULL)
@@ -16,7 +16,7 @@ List create_list()
         aux->task->id = 0;
         aux->task->made_in = 0;
         aux->task->date = 0;
-        char* person = create_string("");
+        char* person = strdup("");
         if(person != NULL) aux->task->person = person;
         aux->next = NULL;
     }
@@ -29,7 +29,7 @@ void search_list_made_in(List list, Task* to_find , List *prev, List *cur)
     *prev = list;
     *cur = list->next;
     time_t date = to_find->made_in;
-    while ( (*cur) != NULL &&  
+    while ( (*cur) != NULL &&
             ( (*cur)->task->made_in < date ||
             ((*cur)->task->made_in == date &&  (*cur)->task->id < to_find -> id) )
         )
@@ -46,7 +46,7 @@ void search_list_date(List list, Task* to_find , List *prev, List *cur)
     *prev = list;
     *cur = list->next;
     time_t date = to_find->date;
-    while ( (*cur) != NULL &&  
+    while ( (*cur) != NULL &&
             ( (*cur)->task->date < date ||
             ((*cur)->task->date == date &&  (*cur)->task->id < to_find -> id) )
         )
@@ -63,7 +63,7 @@ void search_list_person(List list, Task* to_find , List *prev, List *cur)
     *prev = list;
     *cur = list->next;
     char* person = to_find->person;
-    while ( (*cur) != NULL &&  
+    while ( (*cur) != NULL &&
             ( strcmp((*cur)->task->person,person) < 0 ||
             ( strcmp((*cur)->task->person, person) == 0 &&  (*cur)->task->id < to_find -> id ) )
         )
@@ -101,7 +101,7 @@ void search_mode(List list, Task* it , List *prev, List *cur, int mode){
 
         default:
             search_list_made_in(list, it, prev, cur);
-            break;        
+            break;
         }
 }
 
@@ -113,7 +113,7 @@ void insert_list(List list, Task *it, int mode) /* ordenado */
     if (no != NULL)
     {
         no->task = it;
-        search_mode(list, it, &prev, &inutil, mode); 
+        search_mode(list, it, &prev, &inutil, mode);
         no->next = prev->next;
         prev->next = no;
     }
@@ -122,7 +122,7 @@ void insert_list(List list, Task *it, int mode) /* ordenado */
 void print_list(List list)
 {
     List l = list->next; /* Salta o header */
-    while (l)
+    while (l != NULL)
     {
         printf("|%ld|%s|%ld ", l->task->id, l->task->person,l->task->date);
         l = l->next;

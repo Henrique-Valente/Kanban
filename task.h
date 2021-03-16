@@ -19,8 +19,6 @@ typedef struct task
     char* person;
 } Task;
 
-char* create_string(const char* str);
-
 /*
 if you want to create a task without date or person just call as such: create_task(counter,info,NULL,NULL)
 Counter and info must not be NULL.
