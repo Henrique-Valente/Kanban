@@ -15,3 +15,10 @@ Task* create_task(long* counter, const char* info, time_t* date, const char* per
 
     return output;
 }
+
+void destroy_task(Task* task, short delete_person){
+    if(delete_person) {
+        free(task->person);
+    }
+    free(task);
+}

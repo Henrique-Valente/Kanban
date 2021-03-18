@@ -25,7 +25,6 @@ int main(int argc, char const *argv[])
     
     print_list(list);
     List res = find_list(list,s2->id);
-    printf("\n");
     printf("id=%ld\n", res->task->id);
     printf("counter = %ld\n",counter);
    

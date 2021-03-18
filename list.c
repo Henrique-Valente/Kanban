@@ -127,6 +127,7 @@ void print_list(List list)
         printf("|%ld|%s|%ld ", l->task->id, l->task->person,l->task->date);
         l = l->next;
     }
+    printf("\n");
 }
 
 List find_list(List list, long id_to_find){

@@ -12,7 +12,6 @@ typedef struct kanban
 } Kanban;
 
 
-Kanban* create_kanban();
-
+Kanban* create_kanban(void);
 
 #endif
