@@ -151,3 +151,18 @@ Task* remove_from_list(List list, long id){
     }
     return output;
 }
+
+int empty_list(List list){
+    return (list->next == NULL ? 1 : 0);
+}
+
+List destroy_list(List list){
+    List temp;
+    while(empty_list(list) == 0){
+        temp = list;
+        list = list->next;
+        free(temp);
+    }
+    free(list);
+    return NULL;
+}
