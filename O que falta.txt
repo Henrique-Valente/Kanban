@@ -1,3 +1,4 @@
+Alterar o search_list_made_in para ser prioridade data e desempate id
 
 int task_to_do(Kanban* kanban, char* info, short priority)
 // cria um task e adiciona no to_do
