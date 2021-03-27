@@ -20,6 +20,7 @@ List create_list();
 mode = 0 search by creation_date
 mode = 1 search by date
 mode = 2 search by person
+mode = 3 search by priority and creation date;
 */
 void search_mode(List list, Task* it , List *prev, List *cur, int mode);
 
@@ -27,6 +28,7 @@ void search_mode(List list, Task* it , List *prev, List *cur, int mode);
 void search_list_made_in(List list, Task* to_find , List *prev, List *cur);
 void search_list_date(List list, Task* to_find , List *prev, List *cur);
 void search_list_person(List list, Task* to_find , List *prev, List *cur);
+void search_list_priority(List list, Task* to_find , List *prev, List *cur);
 
 
 /* the method search_list_id cannot be used to order */

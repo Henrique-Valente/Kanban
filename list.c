@@ -16,6 +16,7 @@ List create_list()
         aux->task->id = 0;
         aux->task->made_in = 0;
         aux->task->date = 0;
+        aux->task->priority = 0;
         char* person = strdup("");
         if(person != NULL) aux->task->person = person;
         aux->next = NULL;
@@ -75,6 +76,25 @@ void search_list_person(List list, Task* to_find , List *prev, List *cur)
         *cur = NULL; /* Se elemento não encontrado*/
 }
 
+void search_list_priority(List list, Task* to_find , List *prev, List *cur)
+{
+    *prev = list;
+    *cur = list->next;
+    short priority = to_find->priority;
+    time_t date = to_find->made_in;
+    while ( (*cur) != NULL &&
+            ( (*cur)->task->priority > priority ||
+            ((*cur)->task->priority==priority && (*cur)->task->made_in < date) ||
+            ((*cur)->task->priority == priority && (*cur)->task->made_in == date &&  (*cur)->task->id < to_find -> id) )
+        )
+    {
+        *prev = *cur;
+        *cur = (*cur)->next;
+    }
+    if ((*cur) != NULL && (*cur)->task->made_in != date)
+        *cur = NULL; /* Se elemento não encontrado*/
+}
+
 void search_list_id(List list, long id_to_find, List *prev, List *cur){
     *prev = list;
     *cur = list->next;
@@ -98,7 +118,11 @@ void search_mode(List list, Task* it , List *prev, List *cur, int mode){
         case 2:
             search_list_person(list, it, prev, cur);
             break;
-
+        
+        case 3:
+            search_list_priority(list, it, prev, cur);
+            break;
+            
         default:
             search_list_made_in(list, it, prev, cur);
             break;
@@ -124,7 +148,7 @@ void print_list(List list)
     List l = list->next; /* Salta o header */
     while (l != NULL)
     {
-        printf("|%ld|%s|%ld ", l->task->id, l->task->person,l->task->date);
+        printf("id:%ld|%d|%ld ", l->task->id, l->task->priority,l->task->made_in);
         l = l->next;
     }
     printf("\n");

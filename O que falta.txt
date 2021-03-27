@@ -1,10 +1,49 @@
-Alterar o search_list_made_in para ser prioridade data e desempate id
-
 int task_to_do(Kanban* kanban, char* info, short priority)
 // cria um task e adiciona no to_do
 
 int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
 tira do to do e mete no doing
 // devolve -1 se o id nao estiver no to do
-// devolve 0  se esta cheio
-// devolve 1  ocorreu com sucesso
+// devolve 0  ocorreu com sucesso
+// devolve 1  se esta cheio
+
+
+int change_name(Kanban* kanban, long id, char* change_to)
+muda o nome de uma task em doing
+// devolve 0 se mudou com sucesso
+// devolve -1 se id nao estiver no doing
+
+int close_task(Kanban* kanban, long id)
+envia task de to_do ou doing para done
+// devolve 0 se fechou com sucesso
+// devolve -1 se nao id nao estiver no to_do ou doing
+
+int reopen_task(Kanban* kanban, long id)
+envia task de done para to_do
+// devolve 0 se reabriu com sucesso
+// devolve -1 se id nao estiver no done
+
+void show_to_do(Kanban* kanban)
+// mostra todas as tasks em to_do
+
+void show_doing(Kanban* kanban)
+// mostra todas as tasks em doing
+
+void show_done(Kanban* kanban)
+// mostra todas as tasks em done
+
+void showboard(Kanban* kanban)
+imprime: Tasks to be done
+            show_to_do
+         Tasks that are being doing
+            show_doing
+         Tasks that are done
+            show_done
+
+void view_tasks_of(Kanban* kanban, char* person)
+// mostra todas as tasks de um pessoa separando por pipeline
+
+void search_by_made_in(Kanban* kanban)
+---> DUVIDA: nao sei se é para separar por pipeline como o view_tasks_of)
+// cria uma lista de com search_by_made_in e adiciona todas as tasks 
+
