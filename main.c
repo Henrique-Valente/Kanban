@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
     insert_list(list, s6, mode);
     insert_list(list, s4, mode);
     
-    // destroy_task(remove_from_list(list,2),1);
+    destroy_task(remove_from_list(list,2),1);
     print_list(list);
     List res = find_list(list,s2->id);
     if(res != NULL) printf("id=%ld\n", res->task->id);

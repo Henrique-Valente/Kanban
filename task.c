@@ -20,5 +20,6 @@ Task* create_task(long* counter,  short priority, const char* info,time_t* date,
 void destroy_task(Task* task, short delete_person){
     if(delete_person) 
         free(task->person);
+    free(task->info);
     free(task);
 }
