@@ -14,7 +14,7 @@ muda o nome de uma task em doing
 // devolve -1 se id nao estiver no doing
 
 int close_task(Kanban* kanban, long id)
-envia task de to_do ou doing para done
+envia task de doing para done
 // devolve 0 se fechou com sucesso
 // devolve -1 se nao id nao estiver no to_do ou doing
 
