@@ -23,27 +23,12 @@ envia task de done para to_do
 // devolve 0 se reabriu com sucesso
 // devolve -1 se id nao estiver no done
 
-void show_to_do(Kanban* kanban)
-// mostra todas as tasks em to_do
-
-void show_doing(Kanban* kanban)
-// mostra todas as tasks em doing
-
-void show_done(Kanban* kanban)
-// mostra todas as tasks em done
-
-void showboard(Kanban* kanban)
-imprime: Tasks to be done
-            show_to_do
-         Tasks that are being doing
-            show_doing
-         Tasks that are done
-            show_done
+Melhorar show_to_do,show_doing,show_done,show_board
+//alterar a data e o que escrever
 
 void view_tasks_of(Kanban* kanban, char* person)
 // mostra todas as tasks de um pessoa separando por pipeline
 
 void search_by_made_in(Kanban* kanban)
 ---> DUVIDA: nao sei se é para separar por pipeline como o view_tasks_of)
-// cria uma lista de com search_by_made_in e adiciona todas as tasks 
-
+// cria uma lista de com search_by_made_in e adiciona todas as tasks
