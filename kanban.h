@@ -3,7 +3,7 @@
 #include "list.h"
 
 /*
-Struct that represents Kanban board composed by 3 lists 
+Struct that represents Kanban board composed by 3 lists
 to_do list that is ordered by priority and creation_date,
 doing list that is ordered by name,
 done list that is ordered by date.
@@ -17,7 +17,10 @@ typedef struct kanban
     List done;
 } Kanban;
 
-
+void show_to_do(Kanban*);
+void show_doing(Kanban*);
+void show_done(Kanban*);
+void show_board(Kanban*);
 Kanban* create_kanban(void);
 
 #endif
