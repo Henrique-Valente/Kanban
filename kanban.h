@@ -14,6 +14,7 @@ typedef struct kanban
     long counter; //used to assign id to the tasks
     List to_do;
     List doing;
+    int doing_max_size;
     List done;
 } Kanban;
 
@@ -23,4 +24,5 @@ void show_done(Kanban*);
 void show_board(Kanban*);
 Kanban* create_kanban(void);
 
+int do_task(Kanban*, long, char*, time_t);
 #endif

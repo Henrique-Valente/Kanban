@@ -118,11 +118,11 @@ void search_mode(List list, Task* it , List *prev, List *cur, int mode){
         case 2:
             search_list_person(list, it, prev, cur);
             break;
-        
+
         case 3:
             search_list_priority(list, it, prev, cur);
             break;
-            
+
         default:
             search_list_made_in(list, it, prev, cur);
             break;
@@ -190,4 +190,15 @@ List destroy_list(List list){
     }
     free(list);
     return NULL;
+}
+
+int list_size(List list)
+{
+    int size = 0;
+    List cur = list->next;
+    while (cur != NULL){
+        cur = cur->next;
+        size++;
+    }
+    return size;
 }

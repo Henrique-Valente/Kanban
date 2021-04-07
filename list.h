@@ -15,6 +15,7 @@ typedef struct lnode
 
 
 List create_list();
+int list_size(List);
 
 /*
 mode = 0 search by creation_date
