@@ -4,12 +4,6 @@ tira do to do e mete no doing
 // devolve 0  ocorreu com sucesso
 // devolve 1  se esta cheio
 
-
-int change_name(Kanban* kanban, long id, char* change_to)
-muda o nome de uma task em doing
-// devolve 0 se mudou com sucesso
-// devolve -1 se id nao estiver no doing
-
 int close_task(Kanban* kanban, long id)
 envia task de doing para done
 // devolve 0 se fechou com sucesso
