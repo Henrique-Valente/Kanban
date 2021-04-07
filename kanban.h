@@ -26,4 +26,5 @@ Kanban* create_kanban(void);
 void task_to_do(Kanban* kanban, char* info, short priority);
 int do_task(Kanban*, long, char*, time_t);
 int close_task(Kanban*, long);
+int change_name(Kanban* kanban, long id, char* change_to);
 #endif
