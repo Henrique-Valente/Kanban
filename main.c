@@ -5,7 +5,7 @@
 /*so estou a usar isto para testar*/
 int main(int argc, char const *argv[])
 {   
-    time_t t1 = time(NULL);
+   /* time_t t1 = time(NULL);
     //printf("%s",ctime(&t1));
 
     long counter=0; // Usado para criar o id
@@ -37,7 +37,12 @@ int main(int argc, char const *argv[])
     print_list(list);
     List res = find_list(list,s2->id);
     if(res != NULL) printf("id=%ld\n", res->task->id);
-    printf("counter = %ld\n",counter);
+    printf("counter = %ld\n",counter); */
+
+    Kanban* k = create_kanban();
+    task_to_do(k, "info1", 3);
+
+    show_board(k);
    
     return 0;
 }

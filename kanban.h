@@ -23,7 +23,7 @@ void show_doing(Kanban*);
 void show_done(Kanban*);
 void show_board(Kanban*);
 Kanban* create_kanban(void);
-
+void task_to_do(Kanban* kanban, char* info, short priority);
 int do_task(Kanban*, long, char*, time_t);
 int close_task(Kanban*, long);
 #endif

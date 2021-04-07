@@ -16,7 +16,7 @@ void show_to_do(Kanban* kanban)
     while (l != NULL)
     {
         //falta alterar a data
-        printf("id:%ld Prioridade:%2d Início:%3ld Descrição: %s\n",l->task->id,l->task->priority,
+        printf("id:%ld Prioridade:%2d Inicio:%3ld Descricao: %s\n",l->task->id,l->task->priority,
         l->task->made_in,l->task->info);
         l = l->next;
     }
@@ -28,7 +28,7 @@ void show_doing(Kanban* kanban)
     while (l != NULL)
     {
         //falta alterar a data
-        printf("id:%ld Prioridade:%2d Prazo:%3ld Descrição: %s Pessoa:%s\n",l->task->id,l->task->priority,
+        printf("id:%ld Prioridade:%2d Prazo:%3ld Descricao: %s Pessoa:%s\n",l->task->id,l->task->priority,
         l->task->date,l->task->info,l->task->person);
         l = l->next;
     }
@@ -40,7 +40,7 @@ void show_done(Kanban* kanban)
     while (l != NULL)
     {
         //falta data de conclusão e arranjar maneira de converter
-        printf("id:%ld Descrição: %s Conclusão:%ld Pessoa:%s\n",l->task->id,l->task->info,
+        printf("id:%ld Descricao: %s Conclusao:%ld Pessoa:%s\n",l->task->id,l->task->info,
         l->task->date,l->task->person);
         l = l->next;
     }
@@ -56,6 +56,12 @@ void show_board(Kanban* kanban)
 
     printf("\nDONE\n");
     show_done(kanban);
+}
+
+void task_to_do(Kanban* kanban, char* info, short priority){
+    List l = kanban->to_do;
+    Task* t1 = create_task(&(kanban->counter),priority,info,NULL,NULL);
+    insert_list(l,t1,3);
 }
 
 int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
