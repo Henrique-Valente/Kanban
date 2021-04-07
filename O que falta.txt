@@ -1,6 +1,3 @@
-int task_to_do(Kanban* kanban, char* info, short priority)
-// cria um task e adiciona no to_do
-
 int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
 tira do to do e mete no doing
 // devolve -1 se o id nao estiver no to do
