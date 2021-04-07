@@ -1,23 +1,28 @@
 #include "kanban.h"
 
-Kanban* create_kanban()
+Kanban* create_kanban(int doing_max_size)
 {
     Kanban* output = (Kanban*) malloc(sizeof(Kanban));
     output->counter = 0;
     output->to_do = create_list();
     output->doing = create_list();
     output->done = create_list();
+    output->doing_max_size = doing_max_size;
     return output;
 }
 
 void show_to_do(Kanban* kanban)
 {
     List l = kanban->to_do->next;
+    struct tm *info;
+    char buffer[80];
     while (l != NULL)
     {
-        //falta alterar a data
-        printf("id:%ld Prioridade:%2d Inicio:%3ld Descricao: %s\n",l->task->id,l->task->priority,
-        l->task->made_in,l->task->info);
+        info = localtime( &(l->task->made_in) );
+        strftime(buffer,80,"%x", info);
+        
+        printf("id:%ld Priority:%2d Begin:%s Description: %s\n",l->task->id,l->task->priority,
+        buffer,l->task->info);
         l = l->next;
     }
 }
@@ -25,11 +30,15 @@ void show_to_do(Kanban* kanban)
 void show_doing(Kanban* kanban)
 {
     List l = kanban->doing->next;
+    struct tm *info;
+    char buffer[80];
     while (l != NULL)
     {
-        //falta alterar a data
-        printf("id:%ld Prioridade:%2d Prazo:%3ld Descricao: %s Pessoa:%s\n",l->task->id,l->task->priority,
-        l->task->date,l->task->info,l->task->person);
+        info = localtime( &(l->task->date) );
+        strftime(buffer,80,"%x", info);
+
+        printf("id:%ld Prioridade:%2d Prazo:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
+        buffer,l->task->info,l->task->person);
         l = l->next;
     }
 }
@@ -37,11 +46,15 @@ void show_doing(Kanban* kanban)
 void show_done(Kanban* kanban)
 {
     List l = kanban->done->next;
+    struct tm *info;
+    char buffer[80];
     while (l != NULL)
     {
-        //falta data de conclusão e arranjar maneira de converter
-        printf("id:%ld Descricao: %s Conclusao:%ld Pessoa:%s\n",l->task->id,l->task->info,
-        l->task->date,l->task->person);
+        info = localtime( &(l->task->date) );
+        strftime(buffer,80,"%x", info);
+        
+        printf("id:%ld Descricao: %s Conclusao:%s Pessoa:%s\n",l->task->id,l->task->info,
+        buffer,l->task->person);
         l = l->next;
     }
 }
@@ -64,12 +77,12 @@ void task_to_do(Kanban* kanban, char* info, short priority){
     insert_list(l,t1,3);
 }
 
-int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
+int do_task(Kanban* kanban, long id, char* person, time_t deadline)
 {
     Task* cur = remove_from_list(kanban->to_do,id);
     if (cur == NULL) return -1;
     if (kanban->doing_max_size <= list_size(kanban->doing)) return 1;
-    cur->person = strdup(pessoa);
+    cur->person = strdup(person);
     cur->date = deadline;
     insert_list(kanban->doing,cur,2);
     return 0;

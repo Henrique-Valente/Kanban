@@ -22,8 +22,8 @@ void show_to_do(Kanban*);
 void show_doing(Kanban*);
 void show_done(Kanban*);
 void show_board(Kanban*);
-Kanban* create_kanban(void);
+Kanban* create_kanban(int max_doing_size);
 void task_to_do(Kanban* kanban, char* info, short priority);
-int do_task(Kanban*, long, char*, time_t);
+int do_task(Kanban* kanban, long id, char* person, time_t deadline);
 int close_task(Kanban*, long);
 #endif
