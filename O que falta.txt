@@ -1,17 +1,8 @@
-int task_to_do(Kanban* kanban, char* info, short priority)
-// cria um task e adiciona no to_do
-
 int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
 tira do to do e mete no doing
 // devolve -1 se o id nao estiver no to do
 // devolve 0  ocorreu com sucesso
 // devolve 1  se esta cheio
-
-
-int change_name(Kanban* kanban, long id, char* change_to)
-muda o nome de uma task em doing
-// devolve 0 se mudou com sucesso
-// devolve -1 se id nao estiver no doing
 
 int close_task(Kanban* kanban, long id)
 envia task de doing para done

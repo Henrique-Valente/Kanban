@@ -96,3 +96,12 @@ int close_task(Kanban* kanban, long id)
     insert_list(kanban->done,cur,1);
     return 0;
 }
+
+int change_name(Kanban* kanban, long id, char* change_to){
+    List l = kanban -> doing;
+    List cur = NULL;
+    cur = find_list(l,id);
+    if(cur == NULL) return -1;
+    else cur->task->person = strdup(change_to);
+    return 0;
+}
