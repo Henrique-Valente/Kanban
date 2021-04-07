@@ -68,3 +68,12 @@ int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
     insert_list(kanban->doing,cur,2);
     return 0;
 }
+
+int close_task(Kanban* kanban, long id)
+{
+    Task* cur = remove_from_list(kanban->doing,id);
+    if (cur == NULL) return -1;
+    cur->date = time(NULL);
+    insert_list(kanban->done,cur,1);
+    return 0;
+}

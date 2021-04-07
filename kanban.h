@@ -25,4 +25,5 @@ void show_board(Kanban*);
 Kanban* create_kanban(void);
 
 int do_task(Kanban*, long, char*, time_t);
+int close_task(Kanban*, long);
 #endif
