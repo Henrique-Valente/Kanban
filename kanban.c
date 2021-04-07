@@ -57,3 +57,14 @@ void show_board(Kanban* kanban)
     printf("\nDONE\n");
     show_done(kanban);
 }
+
+int do_task(Kanban* kanban, long id, char* pessoa, time_t deadline)
+{
+    Task* cur = remove_from_list(kanban->to_do,id);
+    if (cur == NULL) return -1;
+    if (kanban->doing_max_size <= list_size(kanban->doing)) return 1;
+    cur->person = strdup(pessoa);
+    cur->date = deadline;
+    insert_list(kanban->doing,cur,2);
+    return 0;
+}
