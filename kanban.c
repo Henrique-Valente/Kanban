@@ -30,8 +30,9 @@ void show_to_do(Kanban* kanban, FILE* out)
     }
 }
 
-void show_doing(Kanban* kanban)
+void show_doing(Kanban* kanban, FILE* out)
 {
+    if(out == NULL) out = stdout;
     List l = kanban->doing->next;
     struct tm *info;
     char buffer[80];
@@ -40,14 +41,15 @@ void show_doing(Kanban* kanban)
         info = localtime( &(l->task->date) );
         strftime(buffer,80,"%d/%m/%y %X", info);
 
-        printf("id:%ld Priority:%2d Deadline:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
+        fprintf(out, "id:%ld Priority:%2d Deadline:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
         buffer,l->task->info,l->task->person);
         l = l->next;
     }
 }
 
-void show_done(Kanban* kanban)
+void show_done(Kanban* kanban, FILE* out)
 {
+    if(out == NULL) out = stdout;
     List l = kanban->done->next;
     struct tm *info;
     char buffer[80];
@@ -56,24 +58,25 @@ void show_done(Kanban* kanban)
         info = localtime( &(l->task->date) );
         strftime(buffer,80,"%d/%m/%y %X", info);
 
-        printf("id:%ld Description: %s Conclusion:%s Pessoa:%s\n",l->task->id,l->task->info,
+        fprintf(out, "id:%ld Description: %s Conclusion:%s Person:%s\n",l->task->id,l->task->info,
         buffer,l->task->person);
         l = l->next;
     }
 }
 
-void show_board(Kanban* kanban)
+void show_board(Kanban* kanban, FILE* out)
 {
-    printf("*** Kanban ***\n");
-    printf("\nTO DO\n");
-    show_to_do(kanban,NULL);
+    if(out == NULL) out = stdout;
+    fprintf(out,"*** Kanban ***\n");
+    fprintf(out,"\nTO DO\n");
+    show_to_do(kanban,out);
 
-    printf("\nDOING(%d)\n",kanban->doing_max_size);
-    show_doing(kanban);
+    fprintf(out,"\nDOING(%d)\n",kanban->doing_max_size);
+    show_doing(kanban,out);
 
-    printf("\nDONE\n");
-    show_done(kanban);
-    printf("\n----------------------------------\n");
+    fprintf(out,"\nDONE\n");
+    show_done(kanban,out);
+    fprintf(out, "\n----------------------------------\n");
 }
 
 void task_to_do(Kanban* kanban, char* info, short priority){
@@ -134,13 +137,13 @@ void view_tasks_of(Kanban* kanban, char* person, FILE* out){
     List cur = doing->next;
     struct tm *info;
     char buffer[80];
-    printf("%s has the following tasks:\n",person);
-    printf("Tasks in Doing:\n");
+    fprintf(out, "%s has the following tasks:\n",person);
+    fprintf(out, "Tasks in Doing:\n");
     while(cur != NULL){
         if(strcmp((cur)->task->person, person) == 0){
             info = localtime( &(cur->task->date) );
             strftime(buffer,80,"%d/%m/%y", info);
-            fprintf(out, "id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+            fprintf(out, "id:%ld Priority:%2d Deadline:%s Description: %s\n",cur->task->id,cur->task->priority,
                                                                         buffer,cur->task->info);
         }
         cur = cur->next;
@@ -148,12 +151,12 @@ void view_tasks_of(Kanban* kanban, char* person, FILE* out){
 
     cur = done->next;
 
-    printf("Tasks in Done:\n");
+    fprintf(out, "Tasks in Done:\n");
     while(cur != NULL){
         if(strcmp((cur)->task->person, person) == 0){
             info = localtime( &(cur->task->date) );
             strftime(buffer,80,"%d/%m/%y", info);
-            fprintf(out, "id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+            fprintf(out, "id:%ld Priority:%2d Conclusion:%s Description: %s\n",cur->task->id,cur->task->priority,
                                                                         buffer,cur->task->info);
         }
         cur = cur->next;

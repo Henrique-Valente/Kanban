@@ -19,9 +19,9 @@ typedef struct kanban
 } Kanban;
 
 void show_to_do(Kanban* kanban, FILE* out);
-void show_doing(Kanban* kanban);
-void show_done(Kanban* kanban);
-void show_board(Kanban* kanban);
+void show_doing(Kanban* kanban, FILE* out);
+void show_done(Kanban* kanban, FILE* out);
+void show_board(Kanban* kanban, FILE* out);
 
 Kanban* create_kanban(int max_doing_size);
 void task_to_do(Kanban* kanban, char* info, short priority);

@@ -98,26 +98,68 @@ int main(int argc, char const *argv[])
 
         // Show board
         case 6:
-            show_board(board);
+            show_board(board,NULL);
             break;
 
         // Search by person
         case 7:
-
+            printf("Search tasks of:");
+            scanf("%s",get_input);
+            view_tasks_of(board,get_input,NULL);
             break;
 
         // View all tasks
         case 8:
-
+            search_by_made_in(board,NULL);
             break;
 
         // Print options
         case 9:
             print_options();
             break;
-
-        // Exit
+        
+        // Save kanban board to file
         case 10:
+            printf("Save to:");
+            scanf("%s",get_input);
+            f = fopen(get_input, "w");
+            if(f != NULL){
+                show_board(board,f);
+                fclose(f);
+            }
+            else printf("Error unable to create %s\n", get_input);
+            break;
+        
+        // Search by person and save to file
+        case 11:
+            printf("Search tasks of:");
+            scanf("%s",get_input);
+            char* person = strdup(get_input);
+            printf("Save to:");
+            scanf("%s",get_input);
+
+            f = fopen(get_input, "w");
+            if(f != NULL){
+                view_tasks_of(board,person,f);
+                fclose(f);
+            }
+            else printf("Error unable to create %s\n", get_input);
+            break;
+
+        // View all tasks and save to file
+        case 12:
+            printf("Save to:");
+            scanf("%s",get_input);
+            f = fopen(get_input, "w");
+            if(f != NULL){
+                search_by_made_in(board,f);
+                fclose(f);
+            }
+            else printf("Error unable to create %s\n", get_input);
+            break;
+        
+        // Exit
+        case 13:
             f = fopen("board.txt","w");
             if (f!=NULL){
                 save_state(board,f);
@@ -126,10 +168,6 @@ int main(int argc, char const *argv[])
             destroy_kanban(board);
             free(get_input);
             return EXIT_SUCCESS;
-        
-        // Save board to file
-        case 11:
-            break;
 
         // Invalid option
         default:
@@ -165,5 +203,8 @@ void print_options(){
     printf("7- View all tasks of a person\n");
     printf("8- View all tasks sorted by when it was made\n");
     printf("9- Print options\n");
-    printf("10- Exit\n");
+    printf("10- Save board to a file\n");
+    printf("11- Save all tasks of a person to a file\n");
+    printf("12- Save all tasks to a file\n");
+    printf("13- Exit\n");
 }
