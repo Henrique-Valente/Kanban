@@ -186,6 +186,7 @@ List destroy_list(List list){
     while(empty_list(list) == 0){
         temp = list;
         list = list->next;
+        destroy_task(temp->task, 1);
         free(temp);
     }
     free(list);

@@ -6,7 +6,7 @@
 #include <ctype.h>
 
 void print_options();
-int valid_id(char* input, int* output);
+int valid_id(char* input, long* output);
 
 #define MAX_BUFFER 1000
 
@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     int option;
     char* get_input = malloc(sizeof(char)*MAX_BUFFER);
     Kanban* board = create_kanban(5);
-    int id;
+    long id;
     while(1){
         printf("Type 9 to see avalible options:");
         // scanf("%d", option) causes a infinite loop when a letter is inputted.
@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
                 scanf("%s",get_input);
                 char* changeto = strdup(get_input);
                 if (change_name(board,id,changeto) == -1)
-                    printf("there is no task with id %d currently being worked on\n", id);
+                    printf("there is no task with id %ld currently being worked on\n", id);
             }
             break;
 
@@ -77,7 +77,7 @@ int main(int argc, char const *argv[])
         case 5:
             if(valid_id(get_input,&id)){
                 if(reopen_task(board,id)==-1)
-                    printf("There is finished task with id %d\n",id);
+                    printf("There is finished task with id %ld\n",id);
             }
             break;
 
@@ -106,6 +106,15 @@ int main(int argc, char const *argv[])
             free(get_input);
             return EXIT_SUCCESS;
         
+        // Load Board
+        case 11:
+            printf("Insert file name:");
+            scanf("%s",get_input);
+            FILE* f = fopen(get_input,"r");
+            if(f != NULL) inicialize_tasks(board,f);
+            else printf("File %s was not found\n",get_input);
+            break;
+
         // Invalid option
         default:
             printf("No valid option was selected\n");
@@ -116,7 +125,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
-int valid_id(char* input, int* output){
+int valid_id(char* input, long* output){
     printf("Insert the task id:");
     scanf("%s",input);
     int id = atoi(input);
