@@ -22,14 +22,16 @@ void show_to_do(Kanban* kanban, FILE* out);
 void show_doing(Kanban* kanban);
 void show_done(Kanban* kanban);
 void show_board(Kanban* kanban);
+
 Kanban* create_kanban(int max_doing_size);
 void task_to_do(Kanban* kanban, char* info, short priority);
 int do_task(Kanban* kanban, long id, char* person, time_t deadline);
 int close_task(Kanban* kanban, long id);
 int change_name(Kanban* kanban, long id, char* change_to);
 int reopen_task(Kanban *kanban, long id);
-void view_tasks_of(Kanban* kanban, char* person);
-void search_by_made_in(Kanban* kanban);
+
+void view_tasks_of(Kanban* kanban, char* person, FILE* out);
+void search_by_made_in(Kanban* kanban, FILE* out);
 
 Kanban* inicialize_tasks(FILE* f);
 void save_state(Kanban* kanban, FILE* f);

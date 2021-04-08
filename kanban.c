@@ -126,7 +126,9 @@ void delete_newline(char s[]){
         s[n-1] = '\0';
 }
 
-void view_tasks_of(Kanban* kanban, char* person){
+void view_tasks_of(Kanban* kanban, char* person, FILE* out){
+    if(out == NULL) out = stdout;
+
     List doing = kanban -> doing;
     List done = kanban -> done;
     List cur = doing->next;
@@ -138,7 +140,7 @@ void view_tasks_of(Kanban* kanban, char* person){
         if(strcmp((cur)->task->person, person) == 0){
             info = localtime( &(cur->task->date) );
             strftime(buffer,80,"%d/%m/%y", info);
-            printf("id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+            fprintf(out, "id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
                                                                         buffer,cur->task->info);
         }
         cur = cur->next;
@@ -151,7 +153,7 @@ void view_tasks_of(Kanban* kanban, char* person){
         if(strcmp((cur)->task->person, person) == 0){
             info = localtime( &(cur->task->date) );
             strftime(buffer,80,"%d/%m/%y", info);
-            printf("id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+            fprintf(out, "id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
                                                                         buffer,cur->task->info);
         }
         cur = cur->next;
@@ -239,7 +241,8 @@ void save_state(Kanban *kanban, FILE* f){
     save_list(3,kanban->done->next,f);
 }
 
-void search_by_made_in(Kanban* kanban){
+void search_by_made_in(Kanban* kanban, FILE* out){
+    if(out == NULL) out = stdout;
     List store = create_list();
     List cur = kanban->to_do->next;
     struct tm *info;
@@ -268,7 +271,7 @@ void search_by_made_in(Kanban* kanban){
     while(cur != NULL){
             info = localtime( &(cur->task->made_in) );
             strftime(buffer,80,"%d/%m/%y %X", info);
-            printf("id:%ld Priority:%d Made in:%s Description:%s\n",cur->task->id,cur->task->priority,
+            fprintf(out, "id:%ld Priority:%d Made in:%s Description:%s\n",cur->task->id,cur->task->priority,
                                                                      buffer,cur->task->info);
             cur = cur->next;
     }
