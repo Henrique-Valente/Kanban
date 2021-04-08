@@ -1,9 +1,6 @@
 Melhorar show_to_do,show_doing,show_done,show_board
 //alterar a data e o que escrever
 
-void view_tasks_of(Kanban* kanban, char* person)
-// mostra todas as tasks de um pessoa separando por pipeline
-
 void search_by_made_in(Kanban* kanban)
 ---> DUVIDA: nao sei se é para separar por pipeline como o view_tasks_of)
 // cria uma lista de com search_by_made_in e adiciona todas as tasks
