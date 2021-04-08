@@ -12,8 +12,10 @@ Kanban* create_kanban(int doing_max_size)
     return output;
 }
 
-void show_to_do(Kanban* kanban)
+void show_to_do(Kanban* kanban, FILE* out)
 {
+    if(out == NULL) out = stdout;
+
     List l = kanban->to_do->next;
     struct tm *info;
     char buffer[80];
@@ -22,7 +24,7 @@ void show_to_do(Kanban* kanban)
         info = localtime( &(l->task->made_in) );
         strftime(buffer,80,"%d/%m/%y %X", info);
 
-        printf("id:%ld Priority:%2d Begin:%s Description: %s\n",l->task->id,l->task->priority,
+        fprintf(out, "id:%ld Priority:%2d Begin:%s Description: %s\n",l->task->id,l->task->priority,
         buffer,l->task->info);
         l = l->next;
     }
@@ -64,7 +66,7 @@ void show_board(Kanban* kanban)
 {
     printf("*** Kanban ***\n");
     printf("\nTO DO\n");
-    show_to_do(kanban);
+    show_to_do(kanban,NULL);
 
     printf("\nDOING(%d)\n",kanban->doing_max_size);
     show_doing(kanban);
