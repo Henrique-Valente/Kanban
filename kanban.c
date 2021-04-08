@@ -124,10 +124,15 @@ void delete_newline(char s[]){
         s[n-1] = '\0';
 }
 
-void inicialize_tasks(Kanban *kanban, FILE* f){
+Kanban* inicialize_tasks(FILE* f){
     ssize_t read;
     size_t size = 0;
     char *line = NULL;
+
+    int size_doing;
+    fscanf(f,"%d",&size_doing);
+    fgetc(f);//consume \n
+    Kanban* kanban = create_kanban(size_doing);
 
     int list, id, priority;
     char *info = NULL;
@@ -141,10 +146,8 @@ void inicialize_tasks(Kanban *kanban, FILE* f){
 
         if ((read = getline(&info,&size, f)) == -1){
             printf("File with data not valid!\n");
-            int doing_max_size = kanban->doing_max_size;
             destroy_kanban(kanban);
-            printf("Corrupted data was destroy and board was resetted\n");
-            kanban = create_kanban(doing_max_size);
+            return NULL;
         }
         delete_newline(info);
         Task* t1 = create_task(&(kanban->counter),id,priority,info,NULL,NULL);
@@ -167,6 +170,7 @@ void inicialize_tasks(Kanban *kanban, FILE* f){
             break;
         }
     }
+    return kanban;
 }
 
 void destroy_kanban(Kanban* kanban){
