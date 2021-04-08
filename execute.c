@@ -5,91 +5,140 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int string_equal(char* a, char* b);
+void print_options();
+int valid_id(char* input, int* output);
 
 #define MAX_BUFFER 1000
+
 int main(int argc, char const *argv[])
 {
-    Kanban* board = create_kanban(5);
+    int option;
     char* get_input = malloc(sizeof(char)*MAX_BUFFER);
-
+    Kanban* board = create_kanban(5);
+    int id;
     while(1){
-        printf("Insert your command:\n");
-        scanf("%s", get_input);
-
-        if (string_equal(get_input,"insert"))
+        printf("Type 9 to see avalible options:");
+        // scanf("%d", option) causes a infinite loop when a letter is inputted.
+        scanf("%s",get_input); 
+        option = atoi(get_input);
+        switch (option)
         {
-            scanf ("%[^\n]%*c", get_input);
+        // Create a new task
+        case 1:
+            printf("Insert task info:");
+            scanf ("\n%[^\n]%*c", get_input);
             char* info = strdup(get_input);
             
-            printf("choose a priority:\n");
+            printf("Choose a priority:");
             scanf("%s", get_input);
             int priority = atoi(get_input);
             if(priority >= 1 && priority <= 10){
                 task_to_do(board, info, priority);
-            }else{
-                printf("%s is not a valid priority\n", get_input);
-            }
-        }
-        else if(string_equal(get_input,"do")){
-            scanf("%s", get_input);
-            int id = atoi(get_input);
+            } else printf("%s is not a valid priority\n", get_input);
+            break;
 
-            if(id >= 1){
-                scanf("%s", get_input);
+        // Do task
+        case 2 :
+            if(valid_id(get_input, &id)){
+                printf("Person in charge of the task:");
+                scanf("%s",get_input);
                 char* person = strdup(get_input);
-                scanf("%s", get_input);
-                long deadline = atoi(get_input);
-                
-                if(deadline >= 1){
-                    deadline = deadline*86400+ time(NULL); // deadline days from now on
-                    int signal = do_task(board, id, person, deadline);
-                    
-                    if(signal == -1){ printf("The id %d does not exist\n", id); }
-                    else if(signal == 1){ printf("Cannot add task, Doing board is full\n"); }
+                printf("Insert a deadline:");
+                long deadline;
+                scanf("%ld", &deadline);
+                if(deadline >= 0) {
+                    deadline += deadline*86400 + time(NULL);
+                    int signal = do_task(board,id,person,deadline);
+                    if(signal == -1) printf("The id does not exist in the To Do List\n");
+                    else if(signal == 1) printf("The Doing list is currently full\n");
 
-                }else{
-                    printf("%s is not a valid deadline\n", get_input);
-                }
-
-            }else{
-                printf("%s is not a valid id\n", get_input);
+                } else printf("Invalid deadline\n");
             }
-
-
-        }
-        else if(string_equal(get_input,"close")){
-
-        }
-        else if(string_equal(get_input,"reopen")){
-
-        }
-        else if(string_equal(get_input,"change")){
-        }
-        else if(string_equal(get_input,"show")){
-            scanf("%s",get_input);
-            if(string_equal(get_input, "board")){
-                show_board(board);
-            }else if(string_equal(get_input,"todo")){
-                show_to_do(board);
-            } else if(string_equal(get_input,"doing")){
-                show_doing(board);
-            }else if(string_equal(get_input,"done")){
-                show_done(board);
-            }else{
-                printf("%s is not a valid view option\n", get_input);
+            break;
+        
+        // Change name
+        case 3:
+            if(valid_id(get_input,&id)){
+                printf("Put this task in charge of:");
+                scanf("%s",get_input);
+                char* changeto = strdup(get_input);
+                if (change_name(board,id,changeto) == -1)
+                    printf("there is no task with id %d currently being worked on\n", id);
             }
-        }
-        else if(string_equal(get_input,"exit")){
+            break;
+
+        // Close task
+        case 4:
+            
+            if(valid_id(get_input, &id)) close_task(board, id);
+            break;
+        
+        // Reopen Task
+        case 5:
+            if(valid_id(get_input,&id)){
+                if(reopen_task(board,id)==-1)
+                    printf("There is finished task with id %d\n",id);
+            }
+            break;
+
+        // Show board
+        case 6:
+            show_board(board);
+            break;
+
+        // Search by person
+        case 7:
+
+            break;
+
+        // View all tasks
+        case 8:
+
+            break;
+
+        // Print options
+        case 9:
+            print_options();
+            break;
+
+        // Exit
+        case 10:
+            free(get_input);
+            return EXIT_SUCCESS;
+        
+        // Invalid option
+        default:
+            printf("No valid option was selected\n");
             break;
         }
-        else{
-            printf("%s is not a valid command\n", get_input);
-        }
     }
-    
-    free(get_input);
+
     return 0;
 }
 
-int string_equal(char* a, char* b){ return strcmp(a,b) == 0; }
+int valid_id(char* input, int* output){
+    printf("Insert the task id:");
+    scanf("%s",input);
+    int id = atoi(input);
+    if(id >= 1){
+        *output = id; 
+        return 1;
+    }
+    printf("%s is not a valid id\n", input);
+    return 0;
+}
+
+void print_options(){
+    printf("Select one of the following options:\n");
+    printf("-------------------------------------------------\n");
+    printf("1- Create a new task\n");
+    printf("2- Work on a task\n");
+    printf("3- Finish a task that is being worked on\n");
+    printf("4- Reopen a task\n");
+    printf("5- Change the person in charge of a task\n");
+    printf("6- View board\n");
+    printf("7- View all tasks of a person\n");
+    printf("8- View all tasks sorted by when it was made\n");
+    printf("9- Print options\n");
+    printf("10- Exit\n");
+}
