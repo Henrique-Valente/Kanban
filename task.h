@@ -21,10 +21,10 @@ typedef struct task
 } Task;
 
 /*
-if you want to create a task without date or person just call as such: create_task(counter,priority,info,NULL,NULL)
+if you want to create a task without date or person just call as such: create_task(counter,id,priority,info,NULL,NULL)
 Counter and info must not be NULL.
 */
-Task* create_task(long* counter, short priority, const char* info, time_t* date, const char* person);
+Task* create_task(long* counter,int id, short priority, const char* info, time_t* date, const char* person);
 void destroy_task(Task* task, short delete_person);
 
 #endif

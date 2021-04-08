@@ -1,4 +1,5 @@
 #include "kanban.h"
+#include <stdio.h>
 
 Kanban* create_kanban(int doing_max_size)
 {
@@ -37,7 +38,7 @@ void show_doing(Kanban* kanban)
         info = localtime( &(l->task->date) );
         strftime(buffer,80,"%d/%m/%y", info);
 
-        printf("id:%ld Prioridade:%2d Prazo:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
+        printf("id:%ld Priority:%2d Deadline:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
         buffer,l->task->info,l->task->person);
         l = l->next;
     }
@@ -53,7 +54,7 @@ void show_done(Kanban* kanban)
         info = localtime( &(l->task->date) );
         strftime(buffer,80,"%d/%m/%y %X", info);
 
-        printf("id:%ld Descricao: %s Conclusao:%s Pessoa:%s\n",l->task->id,l->task->info,
+        printf("id:%ld Description: %s Conclusion:%s Pessoa:%s\n",l->task->id,l->task->info,
         buffer,l->task->person);
         l = l->next;
     }
@@ -75,7 +76,7 @@ void show_board(Kanban* kanban)
 
 void task_to_do(Kanban* kanban, char* info, short priority){
     List l = kanban->to_do;
-    Task* t1 = create_task(&(kanban->counter),priority,info,NULL,NULL);
+    Task* t1 = create_task(&(kanban->counter),0,priority,info,NULL,NULL);
     insert_list(l,t1,3);
 }
 
@@ -115,4 +116,53 @@ int reopen_task(Kanban *kanban, long id){
     cur->person = NULL;
     insert_list(kanban->to_do,cur,3);
     return 0;
+}
+
+void delete_newline(char s[]){
+    int n = strlen(s);
+    if (s[n-1] == '\n')
+        s[n-1] = '\0';
+}
+
+void inicialize_tasks(Kanban *kanban, FILE* f){
+    ssize_t read;
+    size_t size = 0;
+    char *line = NULL;
+
+    int list, id, priority;
+    char *info = NULL;
+    char person[50];
+    long made_in, deadline;
+
+    while ((read = getline(&line,&size, f)) != -1)
+    {
+        //printf("%s\n",line);
+        delete_newline(line);
+        sscanf(line,"%d %d %d %ld %ld %s", &list, &id, &priority, &made_in, &deadline,person);
+
+        if ((read = getline(&info,&size, f)) == -1){
+            printf("File with data not valid!");
+            exit(1);
+        }
+        delete_newline(info); //para eliminar o \n
+        Task* t1 = create_task(&(kanban->counter),id,priority,info,NULL,NULL);
+        t1->made_in = made_in;
+        switch (list)
+        {
+        case 1:
+            insert_list(kanban->to_do,t1,3);
+            break;
+        case 2:
+            t1->person = strdup(person);
+            t1->date = deadline;
+            insert_list(kanban->doing,t1,2);
+            break;
+        case 3:
+            t1->person = strdup(person);
+            t1->date = deadline;
+            insert_list(kanban->done,t1,1);
+        default:
+            break;
+        }
+    }
 }

@@ -28,4 +28,6 @@ int do_task(Kanban* kanban, long id, char* person, time_t deadline);
 int close_task(Kanban* kanban, long id);
 int change_name(Kanban* kanban, long id, char* change_to);
 int reopen_task(Kanban *kanban, long id);
+
+void inicialize_tasks(Kanban*, FILE*);
 #endif
