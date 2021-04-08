@@ -106,3 +106,11 @@ int change_name(Kanban* kanban, long id, char* change_to){
     else cur->task->person = strdup(change_to);
     return 0;
 }
+
+int reopen_task(Kanban *kanban, long id){
+    Task* cur = remove_from_list(kanban->done,id);
+    if(cur == NULL) return -1;
+    cur->person = NULL;
+    insert_list(kanban->to_do,cur,3);
+    return 0;
+}

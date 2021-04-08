@@ -38,10 +38,18 @@ int main(int argc, char const *argv[])
     List res = find_list(list,s2->id);
     if(res != NULL) printf("id=%ld\n", res->task->id);
     printf("counter = %ld\n",counter); */
-
-    Kanban* k = create_kanban();
+    time_t t1 = time(NULL);
+    Kanban* k = create_kanban(5);
     task_to_do(k, "info1", 3);
-
+    show_board(k);
+    printf("-----------------------\n");
+    do_task(k,1,"henrique",t1);
+    show_board(k);
+    printf("-----------------------\n");
+    close_task(k,1);
+    show_board(k);
+    printf("-----------------------\n");
+    reopen_task(k,1);
     show_board(k);
    
     return 0;
