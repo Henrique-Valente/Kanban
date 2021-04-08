@@ -211,3 +211,27 @@ void destroy_kanban(Kanban* kanban){
     destroy_list(kanban->done);
     free(kanban);
 }
+
+void save_list(int list,List l, FILE* f){
+    char temp[100];
+    while (l != NULL)
+    {
+        char* name;
+        if (strcmp(l->task->person,"") == 0) name = strdup("\"\"");
+        else name = strdup(l->task->person);
+        sprintf(temp,"%d %ld %d %ld %ld %s\n%s\n",list,l->task->id,l->task->priority,
+        l->task->made_in,l->task->date,name,l->task->info);
+        fputs(temp,f);
+        l = l->next;
+    }
+}
+
+void save_state(Kanban *kanban, FILE* f){
+    char temp[100];
+    sprintf(temp,"%d\n",kanban->doing_max_size);
+    fputs(temp,f);
+
+    save_list(1,kanban->to_do->next,f);
+    save_list(2,kanban->doing->next,f);
+    save_list(3,kanban->done->next,f);
+}

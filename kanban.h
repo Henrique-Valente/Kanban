@@ -33,4 +33,5 @@ void view_tasks_of(Kanban* kanban, char* person);
 Kanban* inicialize_tasks(FILE*);
 void save_state(Kanban*, FILE*);
 void destroy_kanban(Kanban*);
+void save_list(int list,List l, FILE* f);
 #endif
