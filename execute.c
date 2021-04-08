@@ -22,6 +22,7 @@ int main(int argc, char const *argv[])
             scanf ("%[^\n]%*c", get_input);
             char* info = strdup(get_input);
             
+            printf("choose a priority:\n");
             scanf("%s", get_input);
             int priority = atoi(get_input);
             if(priority >= 1 && priority <= 10){
@@ -37,7 +38,6 @@ int main(int argc, char const *argv[])
             if(id >= 1){
                 scanf("%s", get_input);
                 char* person = strdup(get_input);
-                printf("%s\n",person);
                 scanf("%s", get_input);
                 long deadline = atoi(get_input);
                 
