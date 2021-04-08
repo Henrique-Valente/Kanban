@@ -236,3 +236,38 @@ void save_state(Kanban *kanban, FILE* f){
     save_list(2,kanban->doing->next,f);
     save_list(3,kanban->done->next,f);
 }
+
+void search_by_made_in(Kanban* kanban){
+    List store = create_list();
+    List cur = kanban->to_do->next;
+    struct tm *info;
+    char buffer[80];
+
+    while(cur != NULL){
+        insert_list(store,cur->task,0);
+        cur = cur->next;
+    }
+     
+    cur = kanban->doing->next;
+
+    while(cur != NULL){
+        insert_list(store,cur->task,0);
+        cur = cur->next;
+    }
+
+    cur = kanban->done->next;
+
+    while(cur != NULL){
+        insert_list(store,cur->task,0);
+        cur = cur->next;
+    }
+
+    cur = store->next;
+    while(cur != NULL){
+            info = localtime( &(cur->task->made_in) );
+            strftime(buffer,80,"%d/%m/%y %X", info);
+            printf("id:%ld Priority:%d Made in:%s Description:%s\n",cur->task->id,cur->task->priority,
+                                                                     buffer,cur->task->info);
+            cur = cur->next;
+    }
+}
