@@ -19,8 +19,8 @@ void show_to_do(Kanban* kanban)
     while (l != NULL)
     {
         info = localtime( &(l->task->made_in) );
-        strftime(buffer,80,"%x", info);
-        
+        strftime(buffer,80,"%d/%m/%y", info);
+
         printf("id:%ld Priority:%2d Begin:%s Description: %s\n",l->task->id,l->task->priority,
         buffer,l->task->info);
         l = l->next;
@@ -35,7 +35,7 @@ void show_doing(Kanban* kanban)
     while (l != NULL)
     {
         info = localtime( &(l->task->date) );
-        strftime(buffer,80,"%x", info);
+        strftime(buffer,80,"%d/%m/%y", info);
 
         printf("id:%ld Prioridade:%2d Prazo:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
         buffer,l->task->info,l->task->person);
@@ -51,8 +51,8 @@ void show_done(Kanban* kanban)
     while (l != NULL)
     {
         info = localtime( &(l->task->date) );
-        strftime(buffer,80,"%x", info);
-        
+        strftime(buffer,80,"%d/%m/%y %X", info);
+
         printf("id:%ld Descricao: %s Conclusao:%s Pessoa:%s\n",l->task->id,l->task->info,
         buffer,l->task->person);
         l = l->next;
@@ -61,14 +61,16 @@ void show_done(Kanban* kanban)
 
 void show_board(Kanban* kanban)
 {
-    printf("TO DO\n");
+    printf("*** Kanban ***\n");
+    printf("\nTO DO\n");
     show_to_do(kanban);
 
-    printf("\nDOING\n");
+    printf("\nDOING(%d)\n",kanban->doing_max_size);
     show_doing(kanban);
 
     printf("\nDONE\n");
     show_done(kanban);
+    printf("\n----------------------------------\n");
 }
 
 void task_to_do(Kanban* kanban, char* info, short priority){
@@ -82,7 +84,7 @@ int do_task(Kanban* kanban, long id, char* person, time_t deadline)
     if (kanban->doing_max_size <= list_size(kanban->doing)) return 1;
     Task* cur = remove_from_list(kanban->to_do,id);
     if (cur == NULL) return -1;
-    
+
     cur->person = strdup(person);
     cur->date = deadline;
     insert_list(kanban->doing,cur,2);
