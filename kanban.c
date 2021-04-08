@@ -125,7 +125,7 @@ void delete_newline(char s[]){
 }
 
 void inicialize_tasks(Kanban *kanban, FILE* f){
-    size_t read;
+    ssize_t read;
     size_t size = 0;
     char *line = NULL;
 
