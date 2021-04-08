@@ -8,14 +8,14 @@
 // Prints all options avalible to the user
 void print_options();
 
-// Returns 1 and converts string to id if its valid, else prints invalid id and returns 0; 
+// Returns 1 and converts string to id if its valid, else prints invalid id and returns 0;
 int valid_id(char* input, long* output);
 
 // Max string size accept for 1 command;
 #define MAX_BUFFER 1000
 
 int main(int argc, char const *argv[])
-{   
+{
     char* get_input = malloc(sizeof(char)*MAX_BUFFER);
     int option;
 
@@ -27,14 +27,14 @@ int main(int argc, char const *argv[])
         board = inicialize_tasks(f);
         if(board == NULL) board = create_kanban(5);
         fclose(f);
-    }      
+    }
     else board = create_kanban(5);
 
     long id;
     while(1){
-        printf("Type 9 to see avalible options:");
+        printf("Type 9 to see available options:");
         // scanf("%d", option) causes a infinite loop when a letter is inputted.
-        scanf("%s",get_input); 
+        scanf("%s",get_input);
         option = atoi(get_input);
         switch (option)
         {
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
             printf("Insert task info:");
             scanf ("\n%[^\n]%*c", get_input);
             char* info = strdup(get_input);
-            
+
             printf("Choose a priority:");
             scanf("%s", get_input);
             int priority = atoi(get_input);
@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
                 task_to_do(board, info, priority);
             } else printf("%s is not a valid priority\n", get_input);
             break;
-        
+
         // Do task
         case 2 :
             if(valid_id(get_input, &id)){
@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
                 } else printf("Invalid deadline\n");
             }
             break;
-        
+
         // Change name
         case 3:
             if(valid_id(get_input,&id)){
@@ -84,10 +84,10 @@ int main(int argc, char const *argv[])
 
         // Close task
         case 4:
-            
+
             if(valid_id(get_input, &id)) close_task(board, id);
             break;
-        
+
         // Reopen Task
         case 5:
             if(valid_id(get_input,&id)){
@@ -117,7 +117,7 @@ int main(int argc, char const *argv[])
         case 9:
             print_options();
             break;
-        
+
         // Save kanban board to file
         case 10:
             printf("Save to:");
@@ -129,7 +129,7 @@ int main(int argc, char const *argv[])
             }
             else printf("Error unable to create %s\n", get_input);
             break;
-        
+
         // Search by person and save to file
         case 11:
             printf("Search tasks of:");
@@ -157,7 +157,7 @@ int main(int argc, char const *argv[])
             }
             else printf("Error unable to create %s\n", get_input);
             break;
-        
+
         // Exit
         case 13:
             f = fopen("board.txt","w");
@@ -184,7 +184,7 @@ int valid_id(char* input, long* output){
     scanf("%s",input);
     int id = atoi(input);
     if(id >= 1){
-        *output = id; 
+        *output = id;
         return 1;
     }
     printf("%s is not a valid id\n", input);
