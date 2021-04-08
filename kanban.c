@@ -124,6 +124,38 @@ void delete_newline(char s[]){
         s[n-1] = '\0';
 }
 
+void view_tasks_of(Kanban* kanban, char* person){
+    List doing = kanban -> doing;
+    List done = kanban -> done;
+    List cur = doing->next;
+    struct tm *info;
+    char buffer[80];
+    printf("%s has the following tasks:\n",person);
+    printf("Tasks in Doing:\n");
+    while(cur != NULL){
+        if(strcmp((cur)->task->person, person) == 0){
+            info = localtime( &(cur->task->date) );
+            strftime(buffer,80,"%d/%m/%y", info);
+            printf("id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+                                                                        buffer,cur->task->info);
+        }
+        cur = cur->next;
+    }
+
+    cur = done->next;
+
+    printf("Tasks in Done:\n");
+    while(cur != NULL){
+        if(strcmp((cur)->task->person, person) == 0){
+            info = localtime( &(cur->task->date) );
+            strftime(buffer,80,"%d/%m/%y", info);
+            printf("id:%ld Prioridade:%2d Prazo:%s Description: %s\n",cur->task->id,cur->task->priority,
+                                                                        buffer,cur->task->info);
+        }
+        cur = cur->next;
+    }
+}
+
 Kanban* inicialize_tasks(FILE* f){
     ssize_t read;
     size_t size = 0;
