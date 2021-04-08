@@ -29,6 +29,7 @@ int close_task(Kanban* kanban, long id);
 int change_name(Kanban* kanban, long id, char* change_to);
 int reopen_task(Kanban *kanban, long id);
 void view_tasks_of(Kanban* kanban, char* person);
+void search_by_made_in(Kanban* kanban);
 
 Kanban* inicialize_tasks(FILE*);
 void save_state(Kanban*, FILE*);
