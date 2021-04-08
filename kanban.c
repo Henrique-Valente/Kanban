@@ -166,7 +166,8 @@ Kanban* inicialize_tasks(FILE* f){
     fgetc(f);//consume \n
     Kanban* kanban = create_kanban(size_doing);
 
-    int list, id, priority;
+    int list, priority;
+    long id;
     char *info = NULL;
     char person[50];
     long made_in, deadline;
@@ -174,7 +175,7 @@ Kanban* inicialize_tasks(FILE* f){
     while ((read = getline(&line,&size, f)) != -1)
     {
         delete_newline(line);
-        sscanf(line,"%d %d %d %ld %ld %s", &list, &id, &priority, &made_in, &deadline,person);
+        sscanf(line,"%d %ld %d %ld %ld %s", &list, &id, &priority, &made_in, &deadline,person);
 
         if ((read = getline(&info,&size, f)) == -1){
             printf("File with data not valid!\n");
