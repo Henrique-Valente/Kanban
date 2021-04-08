@@ -5,16 +5,31 @@
 #include <stdio.h>
 #include <ctype.h>
 
+// Prints all options avalible to the user
 void print_options();
+
+// Returns 1 and converts string to id if its valid, else prints invalid id and returns 0; 
 int valid_id(char* input, long* output);
 
+// Max string size accept for 1 command;
 #define MAX_BUFFER 1000
 
 int main(int argc, char const *argv[])
-{
-    int option;
+{   
     char* get_input = malloc(sizeof(char)*MAX_BUFFER);
-    Kanban* board = create_kanban(5);
+    int option;
+
+    // Load Board
+    // If a save is already avalible load it
+    Kanban* board;
+    FILE* f = fopen("board.txt","r");
+    if(f != NULL){
+        board = inicialize_tasks(f);
+        if(board == NULL) board = create_kanban(5);
+        fclose(f);
+    }      
+    else board = create_kanban(5);
+
     long id;
     while(1){
         printf("Type 9 to see avalible options:");
@@ -36,7 +51,7 @@ int main(int argc, char const *argv[])
                 task_to_do(board, info, priority);
             } else printf("%s is not a valid priority\n", get_input);
             break;
-
+        
         // Do task
         case 2 :
             if(valid_id(get_input, &id)){
@@ -103,16 +118,17 @@ int main(int argc, char const *argv[])
 
         // Exit
         case 10:
+            f = fopen("board.txt","w");
+            if (f!=NULL){
+                save_state(board,f);
+                fclose(f);
+            }
+            destroy_kanban(board);
             free(get_input);
             return EXIT_SUCCESS;
         
-        // Load Board
+        // Save board to file
         case 11:
-            printf("Insert file name:");
-            scanf("%s",get_input);
-            FILE* f = fopen(get_input,"r");
-            if(f != NULL) inicialize_tasks(board,f);
-            else printf("File %s was not found\n",get_input);
             break;
 
         // Invalid option
