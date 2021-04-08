@@ -133,9 +133,9 @@ void print_options(){
     printf("-------------------------------------------------\n");
     printf("1- Create a new task\n");
     printf("2- Work on a task\n");
-    printf("3- Finish a task that is being worked on\n");
-    printf("4- Reopen a task\n");
-    printf("5- Change the person in charge of a task\n");
+    printf("3- Change the person in charge of a task\n");
+    printf("4- Finish a task that is being worked on\n");
+    printf("5- Reopen a task\n");
     printf("6- View board\n");
     printf("7- View all tasks of a person\n");
     printf("8- View all tasks sorted by when it was made\n");
