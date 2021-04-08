@@ -20,7 +20,7 @@ void show_to_do(Kanban* kanban)
     while (l != NULL)
     {
         info = localtime( &(l->task->made_in) );
-        strftime(buffer,80,"%d/%m/%y", info);
+        strftime(buffer,80,"%d/%m/%y %X", info);
 
         printf("id:%ld Priority:%2d Begin:%s Description: %s\n",l->task->id,l->task->priority,
         buffer,l->task->info);
@@ -36,7 +36,7 @@ void show_doing(Kanban* kanban)
     while (l != NULL)
     {
         info = localtime( &(l->task->date) );
-        strftime(buffer,80,"%d/%m/%y", info);
+        strftime(buffer,80,"%d/%m/%y %X", info);
 
         printf("id:%ld Priority:%2d Deadline:%s Description: %s Person:%s\n",l->task->id,l->task->priority,
         buffer,l->task->info,l->task->person);
@@ -125,7 +125,7 @@ void delete_newline(char s[]){
 }
 
 void inicialize_tasks(Kanban *kanban, FILE* f){
-    ssize_t read;
+    size_t read;
     size_t size = 0;
     char *line = NULL;
 
@@ -136,7 +136,6 @@ void inicialize_tasks(Kanban *kanban, FILE* f){
 
     while ((read = getline(&line,&size, f)) != -1)
     {
-        //printf("%s\n",line);
         delete_newline(line);
         sscanf(line,"%d %d %d %ld %ld %s", &list, &id, &priority, &made_in, &deadline,person);
 
