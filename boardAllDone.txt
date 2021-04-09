@@ -1,0 +1,13 @@
+5
+3 2 6 1617997546 1618002160 Manuel
+Estudar para os exames
+3 6 3 1616950718 1618002165 Manuel
+Acabar de ler "Clean Code"
+3 5 1 1616756318 1618002166 Maria
+Comprar o livro "Introduction to Algorithms"
+3 1 10 1617814718 1618002169 Rui
+Fazer trabalho de LP
+3 4 4 1617998098 1618002171 Tomas
+Escolher estagios de verao
+3 3 1 1617997856 1618002197 Tomas
+Acabar os exercicios de SO
