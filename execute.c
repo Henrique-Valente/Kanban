@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
                 printf("Person in charge of the task:");
                 scanf("%s",get_input);
                 char* person = strdup(get_input);
-                printf("Insert a deadline:");
+                printf("Insert a deadline (in days):");
                 long deadline;
                 scanf("%ld", &deadline);
                 if(deadline >= 0) {
