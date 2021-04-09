@@ -13,6 +13,7 @@ int valid_id(char* input, long* output);
 
 // Max string size accept for 1 command;
 #define MAX_BUFFER 1000
+#define DOING_MAX_SIZE 5
 
 int main(int argc, char const *argv[])
 {
@@ -25,10 +26,10 @@ int main(int argc, char const *argv[])
     FILE* f = fopen("board.txt","r");
     if(f != NULL){
         board = inicialize_tasks(f);
-        if(board == NULL) board = create_kanban(5);
+        if(board == NULL) board = create_kanban(DOING_MAX_SIZE);
         fclose(f);
     }
-    else board = create_kanban(5);
+    else board = create_kanban(DOING_MAX_SIZE);
 
     long id;
     while(1){
