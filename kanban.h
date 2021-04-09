@@ -27,6 +27,7 @@ Kanban* create_kanban(int max_doing_size);
 void task_to_do(Kanban* kanban, char* info, short priority);
 int do_task(Kanban* kanban, long id, char* person, time_t deadline);
 int close_task(Kanban* kanban, long id);
+int abort_task(Kanban* kanban, long id); // Removes a task from Doing and adds it to To Do
 int change_name(Kanban* kanban, long id, char* change_to);
 int reopen_task(Kanban *kanban, long id);
 

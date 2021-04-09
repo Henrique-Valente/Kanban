@@ -106,6 +106,14 @@ int close_task(Kanban* kanban, long id)
     return 0;
 }
 
+int abort_task(Kanban* kanban, long id){
+    Task* cur = remove_from_list(kanban->doing,id);
+    if (cur == NULL) return -1;
+    cur->date = time(NULL);
+    insert_list(kanban->to_do,cur,1);
+    return 0;
+}
+
 int change_name(Kanban* kanban, long id, char* change_to){
     List l = kanban -> doing;
     List cur = NULL;

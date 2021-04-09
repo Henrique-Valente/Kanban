@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
 
     long id;
     while(1){
-        printf("Type 9 to see available options:");
+        printf("Type 10 to see available options:");
         // scanf("%d", option) causes a infinite loop when a letter is inputted.
         scanf("%s",get_input);
         option = atoi(get_input);
@@ -85,12 +85,16 @@ int main(int argc, char const *argv[])
 
         // Close task
         case 4:
-
             if(valid_id(get_input, &id)) close_task(board, id);
+            break;
+        
+        // Abort task
+        case 5:
+            if(valid_id(get_input, &id)) abort_task(board, id);
             break;
 
         // Reopen Task
-        case 5:
+        case 6:
             if(valid_id(get_input,&id)){
                 if(reopen_task(board,id)==-1)
                     printf("There is finished task with id %ld\n",id);
@@ -98,29 +102,29 @@ int main(int argc, char const *argv[])
             break;
 
         // Show board
-        case 6:
+        case 7:
             show_board(board,NULL);
             break;
 
         // Search by person
-        case 7:
+        case 8:
             printf("Search tasks of:");
             scanf("%s",get_input);
             view_tasks_of(board,get_input,NULL);
             break;
 
         // View all tasks
-        case 8:
+        case 9:
             search_by_made_in(board,NULL);
             break;
 
         // Print options
-        case 9:
+        case 10:
             print_options();
             break;
 
         // Save kanban board to file
-        case 10:
+        case 11:
             printf("Save to:");
             scanf("%s",get_input);
             f = fopen(get_input, "w");
@@ -132,7 +136,7 @@ int main(int argc, char const *argv[])
             break;
 
         // Search by person and save to file
-        case 11:
+        case 12:
             printf("Search tasks of:");
             scanf("%s",get_input);
             char* person = strdup(get_input);
@@ -148,7 +152,7 @@ int main(int argc, char const *argv[])
             break;
 
         // View all tasks and save to file
-        case 12:
+        case 13:
             printf("Save to:");
             scanf("%s",get_input);
             f = fopen(get_input, "w");
@@ -160,7 +164,7 @@ int main(int argc, char const *argv[])
             break;
 
         // Exit
-        case 13:
+        case 14:
             f = fopen("board.txt","w");
             if (f!=NULL){
                 save_state(board,f);
@@ -176,7 +180,6 @@ int main(int argc, char const *argv[])
             break;
         }
     }
-
     return 0;
 }
 
@@ -199,13 +202,14 @@ void print_options(){
     printf("2- Work on a task\n");
     printf("3- Change the person in charge of a task\n");
     printf("4- Finish a task that is being worked on\n");
-    printf("5- Reopen a task\n");
-    printf("6- View board\n");
-    printf("7- View all tasks of a person\n");
-    printf("8- View all tasks sorted by when it was made\n");
-    printf("9- Print options\n");
-    printf("10- Save board to a file\n");
-    printf("11- Save all tasks of a person to a file\n");
-    printf("12- Save all tasks to a file\n");
-    printf("13- Exit\n");
+    printf("5- Abort a task that is being worked on\n");
+    printf("6- Reopen a task\n");
+    printf("7- View board\n");
+    printf("8- View all tasks of a person\n");
+    printf("9- View all tasks sorted by when it was made\n");
+    printf("10- Print options\n");
+    printf("11- Save board to a file\n");
+    printf("12- Save all tasks of a person to a file\n");
+    printf("13- Save all tasks to a file\n");
+    printf("14- Exit\n");
 }

@@ -1,9 +1,9 @@
 5
-1 2 10 1617910954 0 ""
-sobreviver
-1 1 6 1617910946 0 ""
-escacar pedra
 1 4 5 1617910974 0 ""
 escavar um tunel
 1 3 4 1617910960 0 ""
 agua
+1 1 6 1617910946 1617970139 Luis
+escacar pedra
+3 2 10 1617910954 1617970085 Henrique
+sobreviver
