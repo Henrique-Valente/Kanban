@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
         case 4:
             if(valid_id(get_input, &id)) close_task(board, id);
             break;
-        
+
         // Abort task
         case 5:
             if(valid_id(get_input, &id)) abort_task(board, id);
@@ -182,7 +182,7 @@ int main(int argc, char const *argv[])
             destroy_kanban(board);
             free(get_input);
             return EXIT_SUCCESS;
-  
+
         // Invalid option
         default:
             printf("No valid option was selected\n");
@@ -207,15 +207,15 @@ int valid_id(char* input, long* output){
 void print_options(){
     printf("Select one of the following options:\n");
     printf("-------------------------------------------------\n");
-    printf("1- Create a new task\n");
-    printf("2- Work on a task\n");
-    printf("3- Change the person in charge of a task\n");
-    printf("4- Finish a task that is being worked on\n");
-    printf("5- Abort a task that is being worked on\n");
-    printf("6- Reopen a task\n");
-    printf("7- View board\n");
-    printf("8- View all tasks of a person\n");
-    printf("9- View all tasks sorted by when it was made\n");
+    printf(" 1- Create a new task\n");
+    printf(" 2- Work on a task\n");
+    printf(" 3- Change the person in charge of a task\n");
+    printf(" 4- Finish a task that is being worked on\n");
+    printf(" 5- Abort a task that is being worked on\n");
+    printf(" 6- Reopen a task\n");
+    printf(" 7- View board\n");
+    printf(" 8- View all tasks of a person\n");
+    printf(" 9- View all tasks sorted by when it was made\n");
     printf("10- Print options\n");
     printf("11- Save board to a file\n");
     printf("12- Save all tasks of a person to a file\n");

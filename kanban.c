@@ -67,7 +67,7 @@ void show_done(Kanban* kanban, FILE* out)
 void show_board(Kanban* kanban, FILE* out)
 {
     if(out == NULL) out = stdout;
-    fprintf(out,"*** Kanban ***\n");
+    fprintf(out,"\n*** Kanban ***\n");
     fprintf(out,"\nTO DO\n");
     show_to_do(kanban,out);
 
@@ -263,7 +263,7 @@ void search_by_made_in(Kanban* kanban, FILE* out){
         insert_list(store,cur->task,0);
         cur = cur->next;
     }
-     
+
     cur = kanban->doing->next;
 
     while(cur != NULL){
