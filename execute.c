@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-// Prints all options avalible to the user
+// Prints all options available to the user
 void print_options();
 
 // Returns 1 and converts string to id if its valid, else prints invalid id and returns 0;
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
     int option;
 
     // Load Board
-    // If a save is already avalible load it
+    // If a save is already available load it
     Kanban* board;
     FILE* f = fopen("board.txt","r");
     if(f != NULL){
