@@ -163,8 +163,17 @@ int main(int argc, char const *argv[])
             else printf("Error unable to create %s\n", get_input);
             break;
 
-        // Exit
+        // Save state
         case 14:
+            f = fopen("board.txt","w");
+            if (f!=NULL){
+                save_state(board,f);
+                fclose(f);
+            }
+            break;
+
+        // Exit
+        case 15:
             f = fopen("board.txt","w");
             if (f!=NULL){
                 save_state(board,f);
@@ -173,7 +182,7 @@ int main(int argc, char const *argv[])
             destroy_kanban(board);
             free(get_input);
             return EXIT_SUCCESS;
-
+  
         // Invalid option
         default:
             printf("No valid option was selected\n");
@@ -211,5 +220,6 @@ void print_options(){
     printf("11- Save board to a file\n");
     printf("12- Save all tasks of a person to a file\n");
     printf("13- Save all tasks to a file\n");
-    printf("14- Exit\n");
+    printf("14- Save current state\n");
+    printf("15- Exit\n");
 }
