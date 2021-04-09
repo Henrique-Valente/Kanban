@@ -1,0 +1,13 @@
+5
+1 1 10 1617814718 0 ""
+Fazer trabalho de LP
+1 2 6 1617997546 0 ""
+Estudar para os exames
+1 4 4 1617998098 0 ""
+Escolher estagios de verao
+1 6 3 1616950718 0 ""
+Acabar de ler "Clean Code"
+1 5 1 1616756318 0 ""
+Comprar o livro "Introduction to Algorithms"
+1 3 1 1617997856 0 ""
+Acabar os exercicios de SO
